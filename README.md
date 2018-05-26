@@ -5,7 +5,7 @@ k-means clustering algorithm implementation written in Go
 ## What It Does
 
 [k-means clustering](https://en.wikipedia.org/wiki/K-means_clustering) partitions
-an n-dimensional data set into k clusters, where each data point belongs to the
+an n-dimensional data set into `k` clusters, where each data point belongs to the
 cluster with the nearest mean, serving as a prototype of the cluster.
 
 ![kmeans animation](https://github.com/muesli/kmeans/blob/master/kmeans.gif)
@@ -35,6 +35,29 @@ for _, c := range clusters {
 	fmt.Printf("Centered at x: %.2f y: %.2f\n", c.Center[0]*255.0, c.Center[1]*255.0)
 	fmt.Printf("Points: %+v\n\n", c.Points)
 }
+```
+
+## Complexity
+
+If `k` (the amount of clusters) and `d` (the dimensions) are fixed, the problem
+can be exactly solved in time O(n<sup>dk+1</sup>), where `n` is the number of
+entities to be clustered.
+
+The running time of the algorithm is O(nkdi), where `n` is the number of
+`d`-dimensional vectors, `k` the number of clusters and `i` the number of
+iterations needed until convergence. On data that does have a clustering
+structure, the number of iterations until convergence is often small, and
+results only improve slightly after the first dozen iterations. The algorithm
+is therefore often considered to be of "linear" complexity in practice,
+although it is in the worst case superpolynomial when performed until
+convergence.
+
+You can greatly reduce the running time by adjusting the required delta
+threshold. The following code executes the algorithm until less than 5% of the
+data points shifted their cluster assignment in the last iteration:
+
+```go
+km, _ := kmeans.NewWithOptions(0.05, false)
 ```
 
 ## Development
