@@ -64,4 +64,5 @@ km, _ := kmeans.NewWithOptions(0.05, false)
 
 [![GoDoc](https://godoc.org/github.com/golang/gddo?status.svg)](https://godoc.org/github.com/muesli/kmeans)
 [![Build Status](https://travis-ci.org/muesli/kmeans.svg?branch=master)](https://travis-ci.org/muesli/kmeans)
+[![Coverage Status](https://coveralls.io/repos/github/muesli/kmeans/badge.svg?branch=master)](https://coveralls.io/github/muesli/kmeans?branch=master)
 [![Go ReportCard](http://goreportcard.com/badge/muesli/kmeans)](http://goreportcard.com/report/muesli/kmeans)
