@@ -13,7 +13,7 @@ func main() {
 	for x := 0; x < 255; x += 4 {
 		for y := 0; y < 255; y += 4 {
 			d = append(d, kmeans.Point{
-				float64(y) / 255.0,
+				float64(x) / 255.0,
 				float64(y) / 255.0,
 			})
 		}
