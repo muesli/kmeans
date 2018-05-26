@@ -1,12 +1,12 @@
 # kmeans
 
-[k-means clustering algorithm](https://en.wikipedia.org/wiki/K-means_clustering) written in Go
+k-means clustering algorithm written in Go
 
 ## What It Does
 
-k-means clustering partitions an n-dimensional data set into k clusters, where
-each data point belongs to the cluster with the nearest mean, serving as a
-prototype of the cluster.
+[k-means clustering](https://en.wikipedia.org/wiki/K-means_clustering) partitions
+an n-dimensional data set into k clusters, where each data point belongs to the
+cluster with the nearest mean, serving as a prototype of the cluster.
 
 ![kmeans animation](https://github.com/muesli/kmeans/blob/master/kmeans.gif)
 
