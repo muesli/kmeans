@@ -68,7 +68,5 @@ func main() {
 
 	// Write HTML footer and generate palette.html
 	buffer.Write([]byte(footer))
-	if err := ioutil.WriteFile("palette.html", buffer.Bytes(), 0644); err != nil {
-		panic(err)
-	}
+	ioutil.WriteFile("palette.html", buffer.Bytes(), 0644)
 }
