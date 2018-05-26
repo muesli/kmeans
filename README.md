@@ -12,7 +12,7 @@ prototype of the cluster.
 
 ## Example
 
-```
+```go
 import "github.com/muesli/kmeans"
 
 km := kmeans.New()
