@@ -21,13 +21,10 @@ func main() {
 	fmt.Printf("%d data points\n", len(d))
 
 	// Partition the data points into 4 clusters
-	clusters, err := km.Run(d, 4)
-	if err != nil {
-		panic(err)
-	}
+	clusters, _ := km.Run(d, 4)
 
 	for i, c := range clusters {
 		fmt.Printf("Cluster: %d\n", i)
-		fmt.Printf("Center: X: %.2f Y: %.2f\n\n", c.Center[0]*255.0, c.Center[1]*255.0)
+		fmt.Printf("Centered at x: %.2f y: %.2f\n", c.Center[0]*255.0, c.Center[1]*255.0)
 	}
 }
