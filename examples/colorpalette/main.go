@@ -45,9 +45,9 @@ func main() {
 	// }
 	fmt.Printf("%d data points\n", len(d))
 
-	km := kmeans.Kmeans{
-		Debug:          true,
-		DeltaThreshold: 0.01,
+	km, err := kmeans.NewWithOptions(0.01, true)
+	if err != nil {
+		panic(err)
 	}
 	clusters, err := km.Run(d, 16)
 	if err != nil {

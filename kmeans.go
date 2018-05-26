@@ -12,10 +12,28 @@ import (
 // Kmeans configuration/option struct
 type Kmeans struct {
 	// when Debug is enabled, graphs are generated after each iteration
-	Debug bool
+	debug bool
 	// DeltaThreshold (in percent between 0.0 and 0.1) aborts processing if
 	// less than n% of data points shifted clusters in the last iteration
-	DeltaThreshold float64
+	deltaThreshold float64
+}
+
+// NewWithOptions returns a Kmeans configuration struct with custom settings
+func NewWithOptions(deltaThreshold float64, debug bool) (Kmeans, error) {
+	if deltaThreshold <= 0.0 || deltaThreshold >= 1.0 {
+		return Kmeans{}, fmt.Errorf("threshold is out of bounds (must be >0.0 and <1.0, in percent)")
+	}
+
+	return Kmeans{
+		debug:          debug,
+		deltaThreshold: deltaThreshold,
+	}, nil
+}
+
+// New returns a Kmeans configuration struct with default settings
+func New() Kmeans {
+	m, _ := NewWithOptions(0.01, false)
+	return m
 }
 
 func randomizeClusters(k int, dataset Points) (Clusters, error) {
@@ -82,11 +100,11 @@ func (m Kmeans) Run(dataset Points, k int) (Clusters, error) {
 		if changes > 0 {
 			clusters.recenter()
 		}
-		if m.Debug {
+		if m.debug {
 			draw(clusters, strconv.Itoa(i))
 		}
 
-		if changes < int(float64(len(dataset))*m.DeltaThreshold) {
+		if changes < int(float64(len(dataset))*m.deltaThreshold) {
 			// fmt.Println("Aborting:", changes, int(float64(len(dataset))*m.TerminationThreshold))
 			break
 		}
