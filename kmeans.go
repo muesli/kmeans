@@ -5,7 +5,6 @@ package kmeans
 import (
 	"fmt"
 	"math/rand"
-	"strconv"
 	"time"
 )
 
@@ -102,7 +101,7 @@ func (m Kmeans) Partition(dataset Points, k int) (Clusters, error) {
 			clusters.recenter()
 		}
 		if m.debug {
-			draw(clusters, strconv.Itoa(i))
+			draw(clusters, i)
 		}
 
 		if changes < int(float64(len(dataset))*m.deltaThreshold) {

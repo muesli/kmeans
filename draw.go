@@ -38,7 +38,7 @@ func (clusters Clusters) centerInDimension(n int) Point {
 	return v
 }
 
-func draw(clusters Clusters, outfile string) {
+func draw(clusters Clusters, iteration int) {
 	var series []chart.Series
 
 	// draw data points
@@ -93,7 +93,7 @@ func draw(clusters Clusters, outfile string) {
 	if err != nil {
 		panic(err)
 	}
-	err = ioutil.WriteFile(fmt.Sprintf("%s.png", outfile), buffer.Bytes(), 0644)
+	err = ioutil.WriteFile(fmt.Sprintf("%d.png", iteration), buffer.Bytes(), 0644)
 	if err != nil {
 		panic(err)
 	}
