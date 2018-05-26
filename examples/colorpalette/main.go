@@ -32,10 +32,9 @@ var (
 
 func main() {
 	// Create data points in the CIE L*a*b color space
-	d := []kmeans.Point{}
-
 	// l for lightness channel
 	// a, b for color channels
+	var d kmeans.Points
 	for l := 30; l < 255; l += 16 {
 		for a := 0; a < 255; a += 16 {
 			for b := 0; b < 255; b += 16 {

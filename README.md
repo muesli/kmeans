@@ -18,7 +18,7 @@ import "github.com/muesli/kmeans"
 km := kmeans.New()
 
 // set up "random" data points (float64 values between 0.0 and 1.0)
-d := []kmeans.Point{}
+var d kmeans.Points
 for x := 0; x < 255; x += 4 {
 	for y := 0; y < 255; y += 4 {
 		d = append(d, kmeans.Point{
