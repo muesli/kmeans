@@ -1,6 +1,6 @@
 # kmeans
 
-k-means clustering algorithm written in Go
+k-means clustering algorithm implementation written in Go
 
 ## What It Does
 
