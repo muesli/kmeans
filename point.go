@@ -5,7 +5,7 @@ import (
 	"math"
 )
 
-// Point is a data point in n dimensions
+// Point is a data point (float64 between 0.0 and 1.0) in n dimensions
 type Point []float64
 
 // Points is a slice of points

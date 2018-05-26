@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	// set up a 2d grid with fixed data points between 0.0 and 1.0
+	// set up "random" data points (float64 values between 0.0 and 1.0)
 	km := kmeans.New()
 	d := []kmeans.Point{}
 	for x := 0; x < 255; x += 4 {
