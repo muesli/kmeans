@@ -56,7 +56,7 @@ func main() {
 	km, _ := kmeans.NewWithOptions(0.01, true)
 
 	// Partition the color space into 16 clusters (palette colors)
-	clusters, _ := km.Run(d, 16)
+	clusters, _ := km.Partition(d, 16)
 
 	for i, c := range clusters {
 		fmt.Printf("Cluster: %d %+v\n", i, c.Center)

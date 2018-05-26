@@ -59,8 +59,9 @@ func randomizeClusters(k int, dataset Points) (Clusters, error) {
 	return c, nil
 }
 
-// Run executes the k-means algorithm on the given dataset and divides it into k clusters
-func (m Kmeans) Run(dataset Points, k int) (Clusters, error) {
+// Partition executes the k-means algorithm on the given dataset and
+// partitions it into k clusters
+func (m Kmeans) Partition(dataset Points, k int) (Clusters, error) {
 	clusters, err := randomizeClusters(k, dataset)
 	if err != nil {
 		return Clusters{}, err

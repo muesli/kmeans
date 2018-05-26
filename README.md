@@ -29,7 +29,7 @@ for x := 0; x < 255; x += 4 {
 }
 
 // Partition the data points into 16 clusters
-clusters, err := km.Run(d, 16)
+clusters, err := km.Partition(d, 16)
 
 for _, c := range clusters {
 	fmt.Printf("Centered at x: %.2f y: %.2f\n", c.Center[0]*255.0, c.Center[1]*255.0)

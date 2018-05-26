@@ -21,7 +21,7 @@ func main() {
 	fmt.Printf("%d data points\n", len(d))
 
 	// Partition the data points into 4 clusters
-	clusters, _ := km.Run(d, 4)
+	clusters, _ := km.Partition(d, 4)
 
 	for i, c := range clusters {
 		fmt.Printf("Cluster: %d\n", i)
