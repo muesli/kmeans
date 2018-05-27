@@ -35,7 +35,7 @@ func main() {
 	// l for lightness channel
 	// a, b for color channels
 	var d kmeans.Points
-	for l := 30; l < 255; l += 16 {
+	for l := 30; l < 230; l += 16 {
 		for a := 0; a < 255; a += 16 {
 			for b := 0; b < 255; b += 16 {
 				d = append(d, kmeans.Point{
@@ -59,7 +59,7 @@ func main() {
 
 	for i, c := range clusters {
 		fmt.Printf("Cluster: %d %+v\n", i, c.Center)
-		col := colorful.Lab(c.Center[0]*1.0, -0.9+(c.Center[1]*1.8), -0.9+(c.Center[2]*1.8))
+		col := colorful.Lab(c.Center[0], -0.9+(c.Center[1]*1.8), -0.9+(c.Center[2]*1.8)).Clamped()
 		fmt.Println("Color as Hex:", col.Hex())
 
 		buffer.Write([]byte(fmt.Sprintf(cell, col.Hex())))
