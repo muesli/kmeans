@@ -5,8 +5,8 @@ k-means clustering algorithm implementation written in Go
 ## What It Does
 
 [k-means clustering](https://en.wikipedia.org/wiki/K-means_clustering) partitions
-an n-dimensional data set into `k` clusters, where each data point belongs to the
-cluster with the nearest mean, serving as a prototype of the cluster.
+a multi-dimensional data set into `k` clusters, where each data point belongs
+to the cluster with the nearest mean, serving as a prototype of the cluster.
 
 ![kmeans animation](https://github.com/muesli/kmeans/blob/master/kmeans.gif)
 
