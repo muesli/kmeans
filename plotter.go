@@ -18,17 +18,18 @@ type Plotter interface {
 type SimplePlotter struct {
 }
 
+// A monokai-ish color palette
 var colors = []drawing.Color{
 	drawing.ColorFromHex("f92672"),
 	drawing.ColorFromHex("89bdff"),
 	drawing.ColorFromHex("66d9ef"),
-	drawing.ColorFromHex("4b7509"),
-	drawing.ColorFromHex("545250"),
 	drawing.ColorFromHex("67210c"),
 	drawing.ColorFromHex("7acd10"),
 	drawing.ColorFromHex("af619f"),
 	drawing.ColorFromHex("fd971f"),
 	drawing.ColorFromHex("dcc060"),
+	drawing.ColorFromHex("545250"),
+	drawing.ColorFromHex("4b7509"),
 }
 
 // Plot draw a 2-dimensional data set into a PNG file named {iteration}.png
