@@ -10,11 +10,14 @@ import (
 
 // Kmeans configuration/option struct
 type Kmeans struct {
-	// when Debug is enabled, graphs are generated after each iteration
+	// when debug is enabled, graphs are generated after each iteration
 	plotter Plotter
-	// DeltaThreshold (in percent between 0.0 and 0.1) aborts processing if
+	// deltaThreshold (in percent between 0.0 and 0.1) aborts processing if
 	// less than n% of data points shifted clusters in the last iteration
 	deltaThreshold float64
+	// iterationThreshold aborts processing when the specified amount of
+	// algorithm iterations was reached
+	iterationThreshold int
 }
 
 // NewWithOptions returns a Kmeans configuration struct with custom settings
@@ -24,8 +27,9 @@ func NewWithOptions(deltaThreshold float64, plotter Plotter) (Kmeans, error) {
 	}
 
 	return Kmeans{
-		plotter:        plotter,
-		deltaThreshold: deltaThreshold,
+		plotter:            plotter,
+		deltaThreshold:     deltaThreshold,
+		iterationThreshold: 96,
 	}, nil
 }
 
