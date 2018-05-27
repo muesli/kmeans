@@ -2,26 +2,28 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
+	"time"
 
 	"github.com/muesli/kmeans"
 )
 
 func main() {
-	// set up "random" data points (float64 values between 0.0 and 1.0)
-	km := kmeans.New()
+	rand.Seed(time.Now().UnixNano())
+
+	// set up a random two-dimensional data set (float64 values between 0.0 and 1.0)
 	var d kmeans.Points
-	for x := 0; x < 255; x += 4 {
-		for y := 0; y < 255; y += 4 {
-			d = append(d, kmeans.Point{
-				float64(x) / 255.0,
-				float64(y) / 255.0,
-			})
-		}
+	for x := 0; x < 1024; x++ {
+		d = append(d, kmeans.Point{
+			rand.Float64(),
+			rand.Float64(),
+		})
 	}
 	fmt.Printf("%d data points\n", len(d))
 
-	// Partition the data points into 4 clusters
-	clusters, _ := km.Partition(d, 4)
+	// Partition the data points into 7 clusters
+	km := kmeans.New()
+	clusters, _ := km.Partition(d, 7)
 
 	for i, c := range clusters {
 		fmt.Printf("Cluster: %d\n", i)

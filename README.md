@@ -15,25 +15,22 @@ to the cluster with the nearest mean, serving as a prototype of the cluster.
 ```go
 import "github.com/muesli/kmeans"
 
-km := kmeans.New()
-
-// set up "random" data points (float64 values between 0.0 and 1.0)
+// set up a random two-dimensional data set (float64 values between 0.0 and 1.0)
 var d kmeans.Points
-for x := 0; x < 255; x += 4 {
-	for y := 0; y < 255; y += 4 {
-		d = append(d, kmeans.Point{
-			float64(x) / 255.0,
-			float64(y) / 255.0,
-		})
-	}
+for x := 0; x < 1024; x++ {
+	d = append(d, kmeans.Point{
+		rand.Float64(),
+		rand.Float64(),
+	})
 }
 
 // Partition the data points into 16 clusters
+km := kmeans.New()
 clusters, err := km.Partition(d, 16)
 
 for _, c := range clusters {
 	fmt.Printf("Centered at x: %.2f y: %.2f\n", c.Center[0]*255.0, c.Center[1]*255.0)
-	fmt.Printf("Points: %+v\n\n", c.Points)
+	fmt.Printf("Matching data points: %+v\n\n", c.Points)
 }
 ```
 
