@@ -10,13 +10,13 @@ type Cluster struct {
 type Clusters []Cluster
 
 // recenter recenters a cluster
-func (cluster *Cluster) recenter() {
-	center, err := cluster.Points.Mean()
+func (c *Cluster) recenter() {
+	center, err := c.Points.Mean()
 	if err != nil {
 		return
 	}
 
-	cluster.Center = center
+	c.Center = center
 }
 
 // recenter recenters all clusters
