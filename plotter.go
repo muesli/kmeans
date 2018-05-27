@@ -38,12 +38,6 @@ func (p SimplePlotter) Plot(clusters Clusters, iteration int) {
 
 	// draw data points
 	for i, c := range clusters {
-		/*
-			col := colorful.Lab(c.Center[0]*1.0, -0.9+(c.Center[1]*1.8), -0.9+(c.Center[2]*1.8))
-			// RGB: col := colorful.Color{R: c.Center[0], G: c.Center[1], B: c.Center[2]}
-			colHex := drawing.ColorFromHex(col.Hex()[1:])
-		*/
-
 		series = append(series, chart.ContinuousSeries{
 			Style: chart.Style{
 				Show:        true,
