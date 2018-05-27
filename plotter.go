@@ -9,6 +9,7 @@ import (
 	"github.com/wcharczuk/go-chart/drawing"
 )
 
+// The Plotter interface lets you implement your own plotters
 type Plotter interface {
 	Plot(clusters Clusters, iteration int)
 }
