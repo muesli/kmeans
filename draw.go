@@ -22,16 +22,16 @@ var colors = []drawing.Color{
 	drawing.ColorFromHex("dcc060"),
 }
 
-func (cluster *Cluster) pointInDimension(n int) Point {
-	var v Point
+func (cluster *Cluster) pointsInDimension(n int) []float64 {
+	var v []float64
 	for _, p := range cluster.Points {
 		v = append(v, p[n])
 	}
 	return v
 }
 
-func (clusters Clusters) centerInDimension(n int) Point {
-	var v Point
+func (clusters Clusters) centersInDimension(n int) []float64 {
+	var v []float64
 	for _, c := range clusters {
 		v = append(v, c.Center[n])
 	}
@@ -55,8 +55,8 @@ func draw(clusters Clusters, iteration int) {
 				StrokeWidth: chart.Disabled,
 				DotColor:    colors[i%len(colors)],
 				DotWidth:    8},
-			XValues: c.pointInDimension(0),
-			YValues: c.pointInDimension(1),
+			XValues: c.pointsInDimension(0),
+			YValues: c.pointsInDimension(1),
 		})
 	}
 
@@ -68,8 +68,8 @@ func draw(clusters Clusters, iteration int) {
 			DotColor:    drawing.ColorBlack,
 			DotWidth:    16,
 		},
-		XValues: clusters.centerInDimension(0),
-		YValues: clusters.centerInDimension(1),
+		XValues: clusters.centersInDimension(0),
+		YValues: clusters.centersInDimension(1),
 	})
 
 	graph := chart.Chart{
