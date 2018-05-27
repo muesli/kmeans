@@ -26,6 +26,7 @@ func (c Clusters) recenter() {
 	}
 }
 
+// reset clears all point assignments
 func (c Clusters) reset() {
 	for i := 0; i < len(c); i++ {
 		c[i].Points = Points{}

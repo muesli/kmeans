@@ -52,13 +52,24 @@ is therefore often considered to be of "linear" complexity in practice,
 although it is in the worst case superpolynomial when performed until
 convergence.
 
+## Options
+
 You can greatly reduce the running time by adjusting the required delta
-threshold. The following code executes the algorithm until less than 5% of the
-data points shifted their cluster assignment in the last iteration:
+threshold. With the following options the algorithm finishes when less than 5%
+of the data points shifted their cluster assignment in the last iteration:
 
 ```go
-km, _ := kmeans.NewWithOptions(0.05, false)
+km, err := kmeans.NewWithOptions(0.05, false)
 ```
+
+If you are working with two-dimensional data sets, kmeans can generate
+beautiful graphs (like the one above) for each iteration of the algorithm:
+
+```go
+km, err := kmeans.NewWithOptions(0.01, true)
+```
+
+Careful: this will generate PNGs in your current working directory.
 
 ## Development
 
