@@ -74,7 +74,7 @@ func (m Kmeans) Partition(dataset Points, k int) (Clusters, error) {
 		clusters.reset()
 
 		for p, point := range dataset {
-			ci := clusters.nearestCluster(point)
+			ci := clusters.Nearest(point)
 			clusters[ci].Points = append(clusters[ci].Points, point)
 			if points[p] != ci {
 				points[p] = ci
@@ -103,7 +103,6 @@ func (m Kmeans) Partition(dataset Points, k int) (Clusters, error) {
 		if m.debug {
 			draw(clusters, i)
 		}
-
 		if changes < int(float64(len(dataset))*m.deltaThreshold) {
 			// fmt.Println("Aborting:", changes, int(float64(len(dataset))*m.TerminationThreshold))
 			break

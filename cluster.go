@@ -33,8 +33,8 @@ func (c Clusters) reset() {
 	}
 }
 
-// nearestCluster returns the index of the cluster nearest to point
-func (c Clusters) nearestCluster(point Point) int {
+// Nearest returns the index of the cluster nearest to point
+func (c Clusters) Nearest(point Point) int {
 	var dist float64
 	var ci int
 
