@@ -52,7 +52,7 @@ func main() {
 	buffer.Write([]byte(header))
 
 	// Enable graph generation (.png files) for each iteration
-	km, _ := kmeans.NewWithOptions(0.01, true)
+	km, _ := kmeans.NewWithOptions(0.01, kmeans.SimplePlotter{})
 
 	// Partition the color space into 16 clusters (palette colors)
 	clusters, _ := km.Partition(d, 16)

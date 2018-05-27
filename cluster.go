@@ -9,6 +9,23 @@ type Cluster struct {
 // Clusters is a slice of clusters
 type Clusters []Cluster
 
+// Nearest returns the index of the cluster nearest to point
+func (c Clusters) Nearest(point Point) int {
+	var dist float64
+	var ci int
+
+	// Find the nearest cluster for this data point
+	for i, cluster := range c {
+		d := point.Distance(cluster.Center)
+		if dist == 0 || d < dist {
+			dist = d
+			ci = i
+		}
+	}
+
+	return ci
+}
+
 // recenter recenters a cluster
 func (c *Cluster) recenter() {
 	center, err := c.Points.Mean()
@@ -33,19 +50,18 @@ func (c Clusters) reset() {
 	}
 }
 
-// Nearest returns the index of the cluster nearest to point
-func (c Clusters) Nearest(point Point) int {
-	var dist float64
-	var ci int
-
-	// Find the nearest cluster for this data point
-	for i, cluster := range c {
-		d := point.Distance(cluster.Center)
-		if dist == 0 || d < dist {
-			dist = d
-			ci = i
-		}
+func (cluster *Cluster) pointsInDimension(n int) []float64 {
+	var v []float64
+	for _, p := range cluster.Points {
+		v = append(v, p[n])
 	}
+	return v
+}
 
-	return ci
+func (clusters Clusters) centersInDimension(n int) []float64 {
+	var v []float64
+	for _, c := range clusters {
+		v = append(v, c.Center[n])
+	}
+	return v
 }

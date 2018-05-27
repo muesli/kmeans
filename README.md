@@ -59,7 +59,7 @@ threshold. With the following options the algorithm finishes when less than 5%
 of the data points shifted their cluster assignment in the last iteration:
 
 ```go
-km, err := kmeans.NewWithOptions(0.05, false)
+km, err := kmeans.NewWithOptions(0.05, nil)
 ```
 
 The default setting for the delta threshold is 0.01 (1%).
@@ -68,10 +68,12 @@ If you are working with two-dimensional data sets, kmeans can generate
 beautiful graphs (like the one above) for each iteration of the algorithm:
 
 ```go
-km, err := kmeans.NewWithOptions(0.01, true)
+km, err := kmeans.NewWithOptions(0.01, kmeans.SimplePlotter{})
 ```
 
 Careful: this will generate PNGs in your current working directory.
+
+You can write your own plotters by implementing the `kmeans.Plotter` interface.
 
 ## Development
 

@@ -9,6 +9,14 @@ import (
 	"github.com/wcharczuk/go-chart/drawing"
 )
 
+type Plotter interface {
+	Plot(clusters Clusters, iteration int)
+}
+
+// SimplePlotter is the default standard plotter for 2-dimensional data sets
+type SimplePlotter struct {
+}
+
 var colors = []drawing.Color{
 	drawing.ColorFromHex("f92672"),
 	drawing.ColorFromHex("89bdff"),
@@ -22,23 +30,8 @@ var colors = []drawing.Color{
 	drawing.ColorFromHex("dcc060"),
 }
 
-func (cluster *Cluster) pointsInDimension(n int) []float64 {
-	var v []float64
-	for _, p := range cluster.Points {
-		v = append(v, p[n])
-	}
-	return v
-}
-
-func (clusters Clusters) centersInDimension(n int) []float64 {
-	var v []float64
-	for _, c := range clusters {
-		v = append(v, c.Center[n])
-	}
-	return v
-}
-
-func draw(clusters Clusters, iteration int) {
+// Plot draw a 2-dimensional data set into a PNG file named {iteration}.png
+func (p SimplePlotter) Plot(clusters Clusters, iteration int) {
 	var series []chart.Series
 
 	// draw data points
