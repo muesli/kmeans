@@ -50,18 +50,18 @@ func (c Clusters) reset() {
 	}
 }
 
-func (cluster *Cluster) pointsInDimension(n int) []float64 {
+func (c *Cluster) pointsInDimension(n int) []float64 {
 	var v []float64
-	for _, p := range cluster.Points {
+	for _, p := range c.Points {
 		v = append(v, p[n])
 	}
 	return v
 }
 
-func (clusters Clusters) centersInDimension(n int) []float64 {
+func (c Clusters) centersInDimension(n int) []float64 {
 	var v []float64
-	for _, c := range clusters {
-		v = append(v, c.Center[n])
+	for _, cl := range c {
+		v = append(v, cl.Center[n])
 	}
 	return v
 }
