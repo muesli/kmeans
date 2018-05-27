@@ -62,6 +62,8 @@ of the data points shifted their cluster assignment in the last iteration:
 km, err := kmeans.NewWithOptions(0.05, false)
 ```
 
+The default setting for the delta threshold is 0.01 (1%).
+
 If you are working with two-dimensional data sets, kmeans can generate
 beautiful graphs (like the one above) for each iteration of the algorithm:
 
