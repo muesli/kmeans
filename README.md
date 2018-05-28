@@ -10,6 +10,12 @@ to the cluster with the nearest mean, serving as a prototype of the cluster.
 
 ![kmeans animation](https://github.com/muesli/kmeans/blob/master/kmeans.gif)
 
+## When Should I Use It?
+
+- When you have numeric, multi-dimensional data sets
+- You don't have labels for your data
+- You know exactly how many clusters you want to partition your data into
+
 ## Example
 
 ```go
