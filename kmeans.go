@@ -107,7 +107,8 @@ func (m Kmeans) Partition(dataset Points, k int) (Clusters, error) {
 		if m.plotter != nil {
 			m.plotter.Plot(clusters, i)
 		}
-		if changes < int(float64(len(dataset))*m.deltaThreshold) {
+		if i == m.iterationThreshold ||
+			changes < int(float64(len(dataset))*m.deltaThreshold) {
 			// fmt.Println("Aborting:", changes, int(float64(len(dataset))*m.TerminationThreshold))
 			break
 		}
