@@ -20,17 +20,6 @@ func (p Point) Distance(p2 Point) float64 {
 	return r
 }
 
-// Equal returns true if the two points have equal values
-func (p Point) Equal(p2 Point) bool {
-	for i := range p {
-		if p[i] != p2[i] {
-			return false
-		}
-	}
-
-	return true
-}
-
 // Mean returns the mean point of p
 func (p Points) Mean() (Point, error) {
 	var l = len(p)
