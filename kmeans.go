@@ -90,17 +90,23 @@ func (m Kmeans) Partition(dataset Points, k int) (Clusters, error) {
 			}
 		}
 
-		for ci, c := range clusters {
-			if len(c.Points) == 0 {
+		for ci := 0; ci < len(clusters); ci++ {
+			if len(clusters[ci].Points) == 0 {
 				// During the iterations, if any of the cluster centers has no
 				// data points associated with it, assign a random data point
 				// to it.
-				//
 				// Also see: http://user.ceng.metu.edu.tr/~tcan/ceng465_f1314/Schedule/KMeansEmpty.html
-				ri := rand.Intn(len(dataset))
-				c.Points = append(c.Points, dataset[ri])
-
-				// FIXME: remove Point from previously assigned cluster?
+				var ri int
+				for {
+					// find a cluster with at least two data points, otherwise
+					// we're just emptying one cluster to fill another
+					ri = rand.Intn(len(dataset))
+					if len(clusters[points[ri]].Points) > 1 {
+						break
+					}
+				}
+				clusters[ci].Points = append(clusters[ci].Points, dataset[ri])
+				clusters[points[ri]].removePoint(dataset[ri])
 				points[ri] = ci
 			}
 		}
