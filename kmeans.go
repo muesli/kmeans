@@ -42,7 +42,7 @@ func New() Kmeans {
 func randomizeClusters(k int, dataset Points) (Clusters, error) {
 	var c Clusters
 	if len(dataset) == 0 || len(dataset[0]) == 0 {
-		return c, fmt.Errorf("there must be at least one dimension in the data-set")
+		return c, fmt.Errorf("there must be at least one dimension in the data set")
 	}
 	if k == 0 {
 		return c, fmt.Errorf("k must be greater than 0")
@@ -65,6 +65,10 @@ func randomizeClusters(k int, dataset Points) (Clusters, error) {
 // Partition executes the k-means algorithm on the given dataset and
 // partitions it into k clusters
 func (m Kmeans) Partition(dataset Points, k int) (Clusters, error) {
+	if k > len(dataset) {
+		return Clusters{}, fmt.Errorf("the size of the data set must at least equal k")
+	}
+
 	clusters, err := randomizeClusters(k, dataset)
 	if err != nil {
 		return Clusters{}, err

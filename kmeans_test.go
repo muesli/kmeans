@@ -33,6 +33,11 @@ func TestPartitioningError(t *testing.T) {
 		t.Errorf("Expected error partitioning with 0 clusters, got nil")
 		return
 	}
+
+	if _, err := km.Partition(d, 2); err == nil {
+		t.Errorf("Expected error partitioning with more clusters than data points, got nil")
+		return
+	}
 }
 
 func TestDimensions(t *testing.T) {
