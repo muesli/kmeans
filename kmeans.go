@@ -106,7 +106,6 @@ func (m Kmeans) Partition(dataset Points, k int) (Clusters, error) {
 					}
 				}
 				clusters[ci].Points = append(clusters[ci].Points, dataset[ri])
-				clusters[points[ri]].removePoint(dataset[ri])
 				points[ri] = ci
 			}
 		}
