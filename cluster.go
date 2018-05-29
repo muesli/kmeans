@@ -26,6 +26,18 @@ func (c Clusters) Nearest(point Point) int {
 	return ci
 }
 
+// removePoint removes a point's assignment to this cluster
+func (c *Cluster) removePoint(p Point) {
+	var pp Points
+	for _, v := range c.Points {
+		if !v.Equal(p) {
+			pp = append(pp, p)
+		}
+	}
+
+	c.Points = pp
+}
+
 // recenter recenters a cluster
 func (c *Cluster) recenter() {
 	center, err := c.Points.Mean()
