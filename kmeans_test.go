@@ -1,8 +1,11 @@
 package kmeans
 
 import (
+	"math/rand"
 	"testing"
 )
+
+var RANDOM_SEED = int64(42)
 
 func TestNewErrors(t *testing.T) {
 	_, err := NewWithOptions(0.00, nil)
@@ -63,3 +66,26 @@ func TestDimensions(t *testing.T) {
 		t.Errorf("Expected %d clusters, got: %d", k, len(clusters))
 	}
 }
+
+func benchmarkPartition(size, partitions int, b *testing.B) {
+	rand.Seed(RANDOM_SEED)
+	var d Points
+
+	for i := 0; i < size; i++ {
+		d = append(d, Point{
+			rand.Float64(),
+			rand.Float64(),
+		})
+	}
+
+	for j := 0; j < b.N; j++ {
+		km := New()
+		km.Partition(d, partitions)
+	}
+
+}
+
+func BenchmarkPartition32Points(b *testing.B)    { benchmarkPartition(32, 16, b) }
+func BenchmarkPartition512Points(b *testing.B)   { benchmarkPartition(512, 16, b) }
+func BenchmarkPartition4096Points(b *testing.B)  { benchmarkPartition(4096, 16, b) }
+func BenchmarkPartition65536Points(b *testing.B) { benchmarkPartition(65536, 16, b) }
