@@ -10,7 +10,7 @@ import (
 
 // Kmeans configuration/option struct
 type Kmeans struct {
-	// when debug is enabled, graphs are generated after each iteration
+	// when a plotter is set, Plot gets called after each iteration
 	plotter Plotter
 	// deltaThreshold (in percent between 0.0 and 0.1) aborts processing if
 	// less than n% of data points shifted clusters in the last iteration
