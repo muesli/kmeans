@@ -67,7 +67,7 @@ func TestDimensions(t *testing.T) {
 	}
 }
 
-func benchmarkPartition(size, partitions int, b *testing.B){
+func benchmarkPartition(size, partitions int, b *testing.B) {
 	rand.Seed(RANDOM_SEED)
 	var d Points
 
@@ -85,7 +85,7 @@ func benchmarkPartition(size, partitions int, b *testing.B){
 
 }
 
-func BenchmarkPartition32Points(b *testing.B)      { benchmarkPartition(32, 16, b) }
-func BenchmarkPartition512Points(b *testing.B)      { benchmarkPartition(512, 16, b) }
-func BenchmarkPartition4096Points(b *testing.B)      { benchmarkPartition(4096, 16, b) }
-func BenchmarkPartition65536Points(b *testing.B)      { benchmarkPartition(65536, 16, b) } 
+func BenchmarkPartition32Points(b *testing.B)    { benchmarkPartition(32, 16, b) }
+func BenchmarkPartition512Points(b *testing.B)   { benchmarkPartition(512, 16, b) }
+func BenchmarkPartition4096Points(b *testing.B)  { benchmarkPartition(4096, 16, b) }
+func BenchmarkPartition65536Points(b *testing.B) { benchmarkPartition(65536, 16, b) }
