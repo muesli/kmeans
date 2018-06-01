@@ -20,6 +20,15 @@ func (p Point) Distance(p2 Point) float64 {
 	return r
 }
 
+func (p Point) averageDistance(points Points) float64 {
+	var d float64
+	for _, point := range points {
+		d += p.Distance(point)
+	}
+
+	return d / float64(len(points))
+}
+
 // Mean returns the mean point of p
 func (p Points) Mean() (Point, error) {
 	var l = len(p)

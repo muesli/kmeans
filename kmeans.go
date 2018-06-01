@@ -4,6 +4,7 @@ package kmeans
 
 import (
 	"fmt"
+	"math"
 	"math/rand"
 	"time"
 )
@@ -124,4 +125,37 @@ func (m Kmeans) Partition(dataset Points, k int) (Clusters, error) {
 	}
 
 	return clusters, nil
+}
+
+func (m Kmeans) Sil(dataset Points) (int, float64, error) {
+	var d float64
+	var mc int
+
+	for n := 2; n < 10; n++ {
+		cc, err := m.Partition(dataset, n)
+		if err != nil {
+			return 0, -1.0, err
+		}
+
+		var si float64
+		var sc int64
+		for ci, c := range cc {
+			for _, p := range c.Points {
+				ai := p.averageDistance(c.Points) // FIXME: exclude p
+				_, bi := cc.Dissimilarity(p, ci)
+
+				si += bi - ai/math.Max(ai, bi)
+				sc++
+			}
+		}
+
+		sd := si / float64(sc)
+		fmt.Println("sil:", sd)
+		if mc == 0 || sd < d {
+			mc = n
+			d = sd
+		}
+	}
+
+	return mc, d, nil
 }

@@ -1,6 +1,7 @@
 package kmeans
 
 import (
+	"fmt"
 	"math/rand"
 	"testing"
 )
@@ -65,6 +66,32 @@ func TestDimensions(t *testing.T) {
 	if len(clusters) != k {
 		t.Errorf("Expected %d clusters, got: %d", k, len(clusters))
 	}
+}
+
+func TestSil(t *testing.T) {
+	var d Points
+	for x := 0; x < 32; x++ {
+		d = append(d, Point{
+			rand.Float64() * 0.2,
+			rand.Float64() * 0.2,
+		})
+	}
+	for x := 0; x < 32; x++ {
+		d = append(d, Point{
+			0.4 + rand.Float64()*0.2,
+			0.4 + rand.Float64()*0.2,
+		})
+	}
+	for x := 0; x < 32; x++ {
+		d = append(d, Point{
+			0.8 + rand.Float64()*0.2,
+			0.8 + rand.Float64()*0.2,
+		})
+	}
+
+	km, _ := NewWithOptions(0.001, SimplePlotter{})
+	nc, dd, err := km.Sil(d)
+	fmt.Printf("%d %f %v\n", nc, dd, err)
 }
 
 func benchmarkPartition(size, partitions int, b *testing.B) {

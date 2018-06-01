@@ -26,6 +26,26 @@ func (c Clusters) Nearest(point Point) int {
 	return ci
 }
 
+// Dissimilarity returns the neighbouring cluster of a point along with its average distance to its points
+func (c Clusters) Dissimilarity(point Point, fromCluster int) (int, float64) {
+	var d float64
+	var nc int
+
+	for i, cluster := range c {
+		if i == fromCluster {
+			continue
+		}
+
+		cd := point.averageDistance(cluster.Points)
+		if nc == 0 || cd < d {
+			nc = i
+			d = cd
+		}
+	}
+
+	return nc, d
+}
+
 // recenter recenters a cluster
 func (c *Cluster) recenter() {
 	center, err := c.Points.Mean()
