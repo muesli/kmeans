@@ -5,13 +5,15 @@ import (
 	"fmt"
 	"io/ioutil"
 
+	"github.com/muesli/clusters"
+
 	"github.com/wcharczuk/go-chart"
 	"github.com/wcharczuk/go-chart/drawing"
 )
 
 // The Plotter interface lets you implement your own plotters
 type Plotter interface {
-	Plot(clusters Clusters, iteration int)
+	Plot(cc clusters.Clusters, iteration int)
 }
 
 // SimplePlotter is the default standard plotter for 2-dimensional data sets
@@ -33,19 +35,19 @@ var colors = []drawing.Color{
 }
 
 // Plot draw a 2-dimensional data set into a PNG file named {iteration}.png
-func (p SimplePlotter) Plot(clusters Clusters, iteration int) {
+func (p SimplePlotter) Plot(cc clusters.Clusters, iteration int) {
 	var series []chart.Series
 
 	// draw data points
-	for i, c := range clusters {
+	for i, c := range cc {
 		series = append(series, chart.ContinuousSeries{
 			Style: chart.Style{
 				Show:        true,
 				StrokeWidth: chart.Disabled,
 				DotColor:    colors[i%len(colors)],
 				DotWidth:    8},
-			XValues: c.pointsInDimension(0),
-			YValues: c.pointsInDimension(1),
+			XValues: c.PointsInDimension(0),
+			YValues: c.PointsInDimension(1),
 		})
 	}
 
@@ -57,8 +59,8 @@ func (p SimplePlotter) Plot(clusters Clusters, iteration int) {
 			DotColor:    drawing.ColorBlack,
 			DotWidth:    16,
 		},
-		XValues: clusters.centersInDimension(0),
-		YValues: clusters.centersInDimension(1),
+		XValues: cc.CentersInDimension(0),
+		YValues: cc.CentersInDimension(1),
 	})
 
 	graph := chart.Chart{

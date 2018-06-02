@@ -3,6 +3,8 @@ package kmeans
 import (
 	"math/rand"
 	"testing"
+
+	"github.com/muesli/clusters"
 )
 
 var RANDOM_SEED = int64(42)
@@ -21,13 +23,14 @@ func TestNewErrors(t *testing.T) {
 
 func TestPartitioningError(t *testing.T) {
 	km := New()
-	if _, err := km.Partition(Points{}, 1); err == nil {
+	d := clusters.Observations{}
+	if _, err := km.Partition(d, 1); err == nil {
 		t.Errorf("Expected error partitioning with empty data set, got nil")
 		return
 	}
 
-	d := Points{
-		Point{
+	d = clusters.Observations{
+		clusters.Coordinates{
 			0.1,
 			0.1,
 		},
@@ -44,10 +47,10 @@ func TestPartitioningError(t *testing.T) {
 }
 
 func TestDimensions(t *testing.T) {
-	var d Points
+	var d clusters.Observations
 	for x := 0; x < 255; x += 32 {
 		for y := 0; y < 255; y += 32 {
-			d = append(d, Point{
+			d = append(d, clusters.Coordinates{
 				float64(x) / 255.0,
 				float64(y) / 255.0,
 			})
@@ -69,10 +72,10 @@ func TestDimensions(t *testing.T) {
 
 func benchmarkPartition(size, partitions int, b *testing.B) {
 	rand.Seed(RANDOM_SEED)
-	var d Points
+	var d clusters.Observations
 
 	for i := 0; i < size; i++ {
-		d = append(d, Point{
+		d = append(d, clusters.Coordinates{
 			rand.Float64(),
 			rand.Float64(),
 		})
