@@ -5,7 +5,8 @@ package kmeans
 import (
 	"fmt"
 	"math/rand"
-	"time"
+
+	"github.com/muesli/clusters"
 )
 
 // Kmeans configuration/option struct
@@ -39,39 +40,16 @@ func New() Kmeans {
 	return m
 }
 
-func randomizeClusters(k int, dataset Points) (Clusters, error) {
-	var c Clusters
-	if len(dataset) == 0 || len(dataset[0]) == 0 {
-		return c, fmt.Errorf("there must be at least one dimension in the data set")
-	}
-	if k == 0 {
-		return c, fmt.Errorf("k must be greater than 0")
-	}
-
-	rand.Seed(time.Now().UnixNano())
-	for i := 0; i < k; i++ {
-		var p Point
-		for j := 0; j < len(dataset[0]); j++ {
-			p = append(p, rand.Float64())
-		}
-
-		c = append(c, Cluster{
-			Center: p,
-		})
-	}
-	return c, nil
-}
-
 // Partition executes the k-means algorithm on the given dataset and
 // partitions it into k clusters
-func (m Kmeans) Partition(dataset Points, k int) (Clusters, error) {
+func (m Kmeans) Partition(dataset clusters.Observations, k int) (clusters.Clusters, error) {
 	if k > len(dataset) {
-		return Clusters{}, fmt.Errorf("the size of the data set must at least equal k")
+		return clusters.Clusters{}, fmt.Errorf("the size of the data set must at least equal k")
 	}
 
-	clusters, err := randomizeClusters(k, dataset)
+	cc, err := clusters.New(k, dataset)
 	if err != nil {
-		return Clusters{}, err
+		return cc, err
 	}
 
 	points := make([]int, len(dataset))
@@ -79,19 +57,19 @@ func (m Kmeans) Partition(dataset Points, k int) (Clusters, error) {
 
 	for i := 0; changes > 0; i++ {
 		changes = 0
-		clusters.reset()
+		cc.Reset()
 
 		for p, point := range dataset {
-			ci := clusters.Nearest(point)
-			clusters[ci].Points = append(clusters[ci].Points, point)
+			ci := cc.Nearest(point)
+			cc[ci].Append(point)
 			if points[p] != ci {
 				points[p] = ci
 				changes++
 			}
 		}
 
-		for ci := 0; ci < len(clusters); ci++ {
-			if len(clusters[ci].Points) == 0 {
+		for ci := 0; ci < len(cc); ci++ {
+			if len(cc[ci].Observations) == 0 {
 				// During the iterations, if any of the cluster centers has no
 				// data points associated with it, assign a random data point
 				// to it.
@@ -101,20 +79,20 @@ func (m Kmeans) Partition(dataset Points, k int) (Clusters, error) {
 					// find a cluster with at least two data points, otherwise
 					// we're just emptying one cluster to fill another
 					ri = rand.Intn(len(dataset))
-					if len(clusters[points[ri]].Points) > 1 {
+					if len(cc[points[ri]].Observations) > 1 {
 						break
 					}
 				}
-				clusters[ci].Points = append(clusters[ci].Points, dataset[ri])
+				cc[ci].Append(dataset[ri])
 				points[ri] = ci
 			}
 		}
 
 		if changes > 0 {
-			clusters.recenter()
+			cc.Recenter()
 		}
 		if m.plotter != nil {
-			m.plotter.Plot(clusters, i)
+			m.plotter.Plot(cc, i)
 		}
 		if i == m.iterationThreshold ||
 			changes < int(float64(len(dataset))*m.deltaThreshold) {
@@ -123,5 +101,5 @@ func (m Kmeans) Partition(dataset Points, k int) (Clusters, error) {
 		}
 	}
 
-	return clusters, nil
+	return cc, nil
 }
