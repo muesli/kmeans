@@ -7,7 +7,9 @@ import (
 	"github.com/muesli/clusters"
 )
 
-var RANDOM_SEED = int64(42)
+const (
+	randomSeed = int64(42)
+)
 
 func TestNewErrors(t *testing.T) {
 	_, err := NewWithOptions(0.00, nil)
@@ -71,7 +73,7 @@ func TestDimensions(t *testing.T) {
 }
 
 func benchmarkPartition(size, partitions int, b *testing.B) {
-	rand.Seed(RANDOM_SEED)
+	rand.Seed(randomSeed)
 	var d clusters.Observations
 
 	for i := 0; i < size; i++ {
@@ -85,7 +87,6 @@ func benchmarkPartition(size, partitions int, b *testing.B) {
 		km := New()
 		km.Partition(d, partitions)
 	}
-
 }
 
 func BenchmarkPartition32Points(b *testing.B)    { benchmarkPartition(32, 16, b) }
