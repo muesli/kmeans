@@ -85,6 +85,10 @@ func (m Kmeans) Partition(dataset clusters.Observations, k int) (clusters.Cluste
 				}
 				cc[ci].Append(dataset[ri])
 				points[ri] = ci
+
+				// Ensure that we always see at least one more iteration after
+				// randomly assigning a data point to a cluster
+				changes = len(dataset)
 			}
 		}
 
