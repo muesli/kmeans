@@ -32,21 +32,17 @@ var (
 )
 
 type Color struct {
-	color colorful.Color
+	colorful.Color
 }
 
 func (c Color) Coordinates() clusters.Coordinates {
-	l, a, b := c.color.Lab()
-	return clusters.Coordinates{
-		l,
-		a,
-		b,
-	}
+	l, a, b := c.Lab()
+	return clusters.Coordinates{l, a, b}
 }
 
 func (c Color) Distance(pos clusters.Coordinates) float64 {
 	c2 := colorful.Lab(pos[0], pos[1], pos[2])
-	return c.color.DistanceLab(c2)
+	return c.DistanceLab(c2)
 }
 
 func main() {
@@ -62,9 +58,7 @@ func main() {
 					continue
 				}
 
-				d = append(d, Color{
-					color: c,
-				})
+				d = append(d, Color{c})
 			}
 		}
 	}
