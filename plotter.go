@@ -13,7 +13,7 @@ import (
 
 // The Plotter interface lets you implement your own plotters
 type Plotter interface {
-	Plot(cc clusters.Clusters, iteration int)
+	Plot(cc clusters.Clusters, iteration int) error
 }
 
 // SimplePlotter is the default standard plotter for 2-dimensional data sets
@@ -34,8 +34,8 @@ var colors = []drawing.Color{
 	drawing.ColorFromHex("4b7509"),
 }
 
-// Plot draw a 2-dimensional data set into a PNG file named {iteration}.png
-func (p SimplePlotter) Plot(cc clusters.Clusters, iteration int) {
+// Plot draw a 2-dimensional data set into a PNG file named {k_iteration}.png
+func (p SimplePlotter) Plot(cc clusters.Clusters, iteration int) error {
 	var series []chart.Series
 
 	// draw data points
@@ -83,10 +83,7 @@ func (p SimplePlotter) Plot(cc clusters.Clusters, iteration int) {
 	buffer := bytes.NewBuffer([]byte{})
 	err := graph.Render(chart.PNG, buffer)
 	if err != nil {
-		panic(err)
+		return err
 	}
-	err = ioutil.WriteFile(fmt.Sprintf("%d_%d.png", len(cc), iteration), buffer.Bytes(), 0644)
-	if err != nil {
-		panic(err)
-	}
+	return ioutil.WriteFile(fmt.Sprintf("%d_%d.png", len(cc), iteration), buffer.Bytes(), 0644)
 }
