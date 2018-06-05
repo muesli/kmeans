@@ -45,7 +45,8 @@ func (p SimplePlotter) Plot(cc clusters.Clusters, iteration int) {
 				Show:        true,
 				StrokeWidth: chart.Disabled,
 				DotColor:    colors[i%len(colors)],
-				DotWidth:    8},
+				DotWidth:    8,
+			},
 			XValues: c.PointsInDimension(0),
 			YValues: c.PointsInDimension(1),
 		})
