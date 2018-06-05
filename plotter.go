@@ -85,7 +85,7 @@ func (p SimplePlotter) Plot(cc clusters.Clusters, iteration int) {
 	if err != nil {
 		panic(err)
 	}
-	err = ioutil.WriteFile(fmt.Sprintf("%d.png", iteration), buffer.Bytes(), 0644)
+	err = ioutil.WriteFile(fmt.Sprintf("%d_%d.png", len(cc), iteration), buffer.Bytes(), 0644)
 	if err != nil {
 		panic(err)
 	}
