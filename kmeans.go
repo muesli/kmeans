@@ -40,16 +40,14 @@ func New() Kmeans {
 	return m
 }
 
-// Partition executes the k-means algorithm on the given dataset and
-// partitions it into k clusters
-func (m Kmeans) Partition(dataset clusters.Observations, k int) (clusters.Clusters, error) {
+func (m Kmeans) partition(dataset clusters.Observations, k int) (clusters.Clusters, []int, error) {
 	if k > len(dataset) {
-		return clusters.Clusters{}, fmt.Errorf("the size of the data set must at least equal k")
+		return clusters.Clusters{}, nil, fmt.Errorf("the size of the data set must at least equal k")
 	}
 
 	cc, err := clusters.New(k, dataset)
 	if err != nil {
-		return cc, err
+		return cc, nil, err
 	}
 
 	points := make([]int, len(dataset))
@@ -105,5 +103,20 @@ func (m Kmeans) Partition(dataset clusters.Observations, k int) (clusters.Cluste
 		}
 	}
 
-	return cc, nil
+	return cc, points, nil
+}
+
+// Partition executes the k-means algorithm on the given dataset and
+// partitions it into k clusters
+func (m Kmeans) Partition(dataset clusters.Observations, k int) (clusters.Clusters, error) {
+	cc, _, err := m.partition(dataset, k)
+	return cc, err
+}
+
+// PartitionPoints executes the k-means algorithm on the given dataset and
+// partitions it into k clusters, returning a slice containing to which cluster
+// each point was assigned to
+func (m Kmeans) PartitionPoints(dataset clusters.Observations, k int) ([]int, error) {
+	_, points, err := m.partition(dataset, k)
+	return points, err
 }
