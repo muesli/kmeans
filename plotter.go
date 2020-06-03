@@ -42,7 +42,7 @@ func (p SimplePlotter) Plot(cc clusters.Clusters, iteration int) error {
 	for i, c := range cc {
 		series = append(series, chart.ContinuousSeries{
 			Style: chart.Style{
-				Show:        true,
+				Hidden:		 false,
 				StrokeWidth: chart.Disabled,
 				DotColor:    colors[i%len(colors)],
 				DotWidth:    8,
@@ -55,7 +55,7 @@ func (p SimplePlotter) Plot(cc clusters.Clusters, iteration int) error {
 	// draw cluster center points
 	series = append(series, chart.ContinuousSeries{
 		Style: chart.Style{
-			Show:        true,
+			Hidden:		 false,
 			StrokeWidth: chart.Disabled,
 			DotColor:    drawing.ColorBlack,
 			DotWidth:    16,
@@ -70,12 +70,12 @@ func (p SimplePlotter) Plot(cc clusters.Clusters, iteration int) error {
 		Series: series,
 		XAxis: chart.XAxis{
 			Style: chart.Style{
-				Show: true,
+				Hidden:	 false,
 			},
 		},
 		YAxis: chart.YAxis{
 			Style: chart.Style{
-				Show: true,
+				Hidden:	 false,
 			},
 		},
 	}
