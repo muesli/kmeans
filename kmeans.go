@@ -96,7 +96,10 @@ func (m Kmeans) Partition(dataset clusters.Observations, k int) (clusters.Cluste
 			cc.Recenter()
 		}
 		if m.plotter != nil {
-			m.plotter.Plot(cc, i)
+			e := m.plotter.Plot(cc, i)
+			if e != nil {
+				return nil, fmt.Errorf("failed to plot chart: %s", e)
+			}
 		}
 		if i == m.iterationThreshold ||
 			changes < int(float64(len(dataset))*m.deltaThreshold) {
