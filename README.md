@@ -1,5 +1,11 @@
 # kmeans
 
+[![Latest Release](https://img.shields.io/github/release/muesli/kmeans.svg)](https://github.com/muesli/kmeans/releases)
+[![Build Status](https://github.com/muesli/kmeans/workflows/build/badge.svg)](https://github.com/muesli/kmeans/actions)
+[![Coverage Status](https://coveralls.io/repos/github/muesli/kmeans/badge.svg?branch=master)](https://coveralls.io/github/muesli/kmeans?branch=master)
+[![Go ReportCard](http://goreportcard.com/badge/muesli/kmeans)](http://goreportcard.com/report/muesli/kmeans)
+[![GoDoc](https://godoc.org/github.com/golang/gddo?status.svg)](https://pkg.go.dev/github.com/muesli/kmeans)
+
 k-means clustering algorithm implementation written in Go
 
 ## What It Does
@@ -80,10 +86,3 @@ km, err := kmeans.NewWithOptions(0.01, kmeans.SimplePlotter{})
 Careful: this will generate PNGs in your current working directory.
 
 You can write your own plotters by implementing the `kmeans.Plotter` interface.
-
-## Development
-
-[![GoDoc](https://godoc.org/github.com/golang/gddo?status.svg)](https://godoc.org/github.com/muesli/kmeans)
-[![Build Status](https://travis-ci.org/muesli/kmeans.svg?branch=master)](https://travis-ci.org/muesli/kmeans)
-[![Coverage Status](https://coveralls.io/repos/github/muesli/kmeans/badge.svg?branch=master)](https://coveralls.io/github/muesli/kmeans?branch=master)
-[![Go ReportCard](http://goreportcard.com/badge/muesli/kmeans)](http://goreportcard.com/report/muesli/kmeans)
