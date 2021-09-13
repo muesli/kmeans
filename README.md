@@ -80,7 +80,7 @@ If you are working with two-dimensional data sets, kmeans can generate
 beautiful graphs (like the one above) for each iteration of the algorithm:
 
 ```go
-km, err := kmeans.NewWithOptions(0.01, kmeans.SimplePlotter{})
+km, err := kmeans.NewWithOptions(0.01, plotter.SimplePlotter{})
 ```
 
 Careful: this will generate PNGs in your current working directory.
