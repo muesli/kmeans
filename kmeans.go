@@ -21,6 +21,11 @@ type Kmeans struct {
 	iterationThreshold int
 }
 
+// The Plotter interface lets you implement your own plotters
+type Plotter interface {
+	Plot(cc clusters.Clusters, iteration int) error
+}
+
 // NewWithOptions returns a Kmeans configuration struct with custom settings
 func NewWithOptions(deltaThreshold float64, plotter Plotter) (Kmeans, error) {
 	if deltaThreshold <= 0.0 || deltaThreshold >= 1.0 {

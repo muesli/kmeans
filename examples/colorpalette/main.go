@@ -7,6 +7,7 @@ import (
 
 	"github.com/muesli/clusters"
 	"github.com/muesli/kmeans"
+	"github.com/muesli/kmeans/plotter"
 
 	colorful "github.com/lucasb-eyer/go-colorful"
 )
@@ -68,7 +69,7 @@ func main() {
 	buffer.Write([]byte(header))
 
 	// Enable graph generation (.png files) for each iteration
-	km, _ := kmeans.NewWithOptions(0.01, kmeans.SimplePlotter{})
+	km, _ := kmeans.NewWithOptions(0.01, plotter.SimplePlotter{})
 
 	// Partition the color space into 16 clusters (palette colors)
 	clusters, _ := km.Partition(d, 16)
