@@ -12,12 +12,12 @@ const (
 )
 
 func TestNewErrors(t *testing.T) {
-	_, err := NewWithOptions(0.00, nil)
+	_, err := NewWithOptions(0.00, nil, 0)
 	if err == nil {
 		t.Errorf("Expected invalid options to return an error, got nil")
 	}
 
-	_, err = NewWithOptions(1.00, nil)
+	_, err = NewWithOptions(1.00, nil, 0)
 	if err == nil {
 		t.Errorf("Expected invalid options to return an error, got nil")
 	}
