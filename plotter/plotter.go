@@ -74,5 +74,5 @@ func (p SimplePlotter) Plot(cc clusters.Clusters, iteration int) error {
 	if err != nil {
 		return err
 	}
-	return ioutil.WriteFile(fmt.Sprintf("%d_%d.png", len(cc), iteration), buffer.Bytes(), 0644)
+	return ioutil.WriteFile(fmt.Sprintf("%d_%d.png", len(cc), iteration), buffer.Bytes(), 0600)
 }

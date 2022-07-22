@@ -83,7 +83,7 @@ func (m Kmeans) Partition(dataset clusters.Observations, k int) (clusters.Cluste
 				for {
 					// find a cluster with at least two data points, otherwise
 					// we're just emptying one cluster to fill another
-					ri = rand.Intn(len(dataset))
+					ri = rand.Intn(len(dataset)) //nolint:gosec // rand.Intn is good enough for this
 					if len(cc[points[ri]].Observations) > 1 {
 						break
 					}
