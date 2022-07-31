@@ -19,6 +19,12 @@ type Kmeans struct {
 	// iterationThreshold aborts processing when the specified amount of
 	// algorithm iterations was reached
 	iterationThreshold int
+	// seed is used by Partition to override how the clusters package seeds
+	// the math/rand default source. To use always the same	seed, set seed
+	// to a non-zero value. To avoid overriding, thus letting the cluster
+	// package to seed with the current time, leave seed to 0.
+	// In case of doubt, use 0.
+	seed int64
 }
 
 // The Plotter interface lets you implement your own plotters
@@ -27,7 +33,7 @@ type Plotter interface {
 }
 
 // NewWithOptions returns a Kmeans configuration struct with custom settings
-func NewWithOptions(deltaThreshold float64, plotter Plotter) (Kmeans, error) {
+func NewWithOptions(deltaThreshold float64, plotter Plotter, seed int64) (Kmeans, error) {
 	if deltaThreshold <= 0.0 || deltaThreshold >= 1.0 {
 		return Kmeans{}, fmt.Errorf("threshold is out of bounds (must be >0.0 and <1.0, in percent)")
 	}
@@ -36,23 +42,31 @@ func NewWithOptions(deltaThreshold float64, plotter Plotter) (Kmeans, error) {
 		plotter:            plotter,
 		deltaThreshold:     deltaThreshold,
 		iterationThreshold: 96,
+		seed:               seed,
 	}, nil
 }
 
 // New returns a Kmeans configuration struct with default settings
 func New() Kmeans {
-	m, _ := NewWithOptions(0.01, nil)
+	m, _ := NewWithOptions(0.01, nil, 0)
 	return m
 }
 
-// Partition executes the k-means algorithm on the given dataset and
-// partitions it into k clusters
+// Partition executes the k-means algorithm on the given dataset and partitions
+// it into k clusters. See the Kmeans struct for an explanation of the random seed.
 func (m Kmeans) Partition(dataset clusters.Observations, k int) (clusters.Clusters, error) {
 	if k > len(dataset) {
 		return clusters.Clusters{}, fmt.Errorf("the size of the data set must at least equal k")
 	}
 
-	cc, err := clusters.New(k, dataset)
+	var cc clusters.Clusters
+	var err error
+
+	if m.seed == 0 {
+		cc, err = clusters.New(k, dataset)
+	} else {
+		cc, err = clusters.NewWithOptions(k, dataset, m.seed)
+	}
 	if err != nil {
 		return cc, err
 	}
