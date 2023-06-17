@@ -4,9 +4,8 @@ package kmeans
 
 import (
 	"fmt"
-	"math/rand"
-
 	"github.com/muesli/clusters"
+	"math/rand"
 )
 
 // Kmeans configuration/option struct
@@ -59,7 +58,7 @@ func (m Kmeans) Partition(dataset clusters.Observations, k int) (clusters.Cluste
 
 	points := make([]int, len(dataset))
 	changes := 1
-
+	rand.Seed(0) // random seed as zero for stable output cluster data
 	for i := 0; changes > 0; i++ {
 		changes = 0
 		cc.Reset()
