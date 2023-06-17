@@ -3,11 +3,11 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"github.com/DerikZhang/kmeans"
+	"github.com/DerikZhang/kmeans/plotter"
 	"io/ioutil"
 
 	"github.com/muesli/clusters"
-	"github.com/muesli/kmeans"
-	"github.com/muesli/kmeans/plotter"
 
 	colorful "github.com/lucasb-eyer/go-colorful"
 )
